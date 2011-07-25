@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head charset="utf-8">
+
+   <title></title>
+   <meta name="author" content="">
+   <meta name="description" content="">
+
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <link rel="stylesheet" href="css/style.css">
+
+   <script src="libs/modernizr.js"></script>
+</head>
+<body>
+   <header>
+      <h1 id="brand">Sean Caetano Martin</h1>
+   </header>
+
+   <section id="content">
+      <ul id="tumblr">
+         <li><img src="imgs/ajax-loader.gif"></li>
+      </ul>
+   </section>
+
+   <section id="latestTweet">
+      <img src="imgs/ajax-loader.gif">
+   </section>
+   
+
+
+
+
+
+   <!--
+      Templates go in this magic div that no one sees
+   -->
+   <div class="hidden">
+       <script id="_latestTweet" type="text/template">
+         <strong>@<a href="//twitter.com/xonecas">xonecas</a></strong>
+         <span><%= text %></span>
+         <em><%= relTime %></em>
+      </script>     
+      <script id="_tumblr" type="text/template">
+         <li id="<%= id %>" class="post clearfix">
+            <h2 class="title">
+               <span class="alien"><%= alien %></span> 
+               <%= title %>
+            </h2>
+            <span class="relTime"><%= relTime %></span>
+            <div class="body">
+               <%= body %>
+            </div>
+         </li>
+      </script>
+   </div>
+
+   <!--
+      Dependencies (need to concat)
+   -->
+   <script src="libs/json2.js"></script>
+   <script src="libs/jquery.js"></script>
+   <script src="libs/underscore.js"></script>
+   <script src="libs/backbone.js"></script>
+   <script src="js/script.js"></script>
+</body
+</html>

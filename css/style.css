@@ -1,0 +1,216 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Font kits, from FontSquirrel.com
+*/
+@font-face {
+    font-family: 'Oxygene';
+    src: url('OXYGENE1-webfont.eot');
+    src: url('OXYGENE1-webfont.eot?#iefix') format('embedded-opentype'),
+         url('OXYGENE1-webfont.woff') format('woff'),
+         url('OXYGENE1-webfont.ttf') format('truetype'),
+         url('OXYGENE1-webfont.svg#Oxygene1Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* From the html5boilerplate
+   h5bp.com (modified)
+*/
+html { 
+   font-size: 100%; 
+   overflow-y: scroll; 
+   -webkit-tap-highlight-color: rgba(0,0,0,0); 
+   -webkit-text-size-adjust: 100%; 
+   -ms-text-size-adjust: 100%; 
+}
+body { 
+   margin: 0; 
+   font-size: 14px; 
+   line-height: 1.231; 
+}
+body, button, input, select, textarea { 
+   font-family: 'Helvetica', sans-serif; 
+   color: #222; 
+}
+
+::-moz-selection { background: #000; color: #fff; text-shadow: none; }
+::selection { background: #000; color: #fff; text-shadow: none; }
+
+a { 
+   color: #000; 
+   display: inline-block;
+   padding: 2px 4px;
+}
+a:visited { background: #26ADE4; }
+a:focus { outline: thin dotted; }
+a:hover, a:active { 
+   outline: 0; 
+   background-color: #eee; 
+}
+pre, code, kbd, samp { 
+   font-family:  monospace, monospace; 
+   _font-family: 'courier new', monospace; 
+   font-size: 1em; 
+   padding: 4px 6px;
+}
+pre { 
+   white-space: pre; 
+   white-space: pre-wrap; 
+   word-wrap: break-word; 
+}
+
+/* Main styles
+   by @xonecas
+*/
+
+h1, h2 {
+   font-family: 'Georgia', serif;
+   font-weight: bold;
+   text-shadow: 1px 1px 3px #000; 
+}
+
+h1 {
+   font-size: 64px;
+   padding: 10px 0;
+   text-align: center;
+}
+h2 {
+   font-size: 48px;
+}
+
+
+em { font-style: italic; }
+strong { font-weight: bold; }
+
+p { margin: 1em 0; }
+
+pre, code {
+   background: #fff;
+   border-left: 10px solid #D1E751;
+}
+pre code {
+   border: none;
+}
+header {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   padding: 20px;
+   background: #fff;
+   z-index: 10;
+}
+
+#content {
+   margin: 156px 0 0 0;
+}
+
+#latestTweet {
+   background: #D1E751;
+   text-align: center;
+   padding: 20px;
+   border-bottom: 10px solid #fff;
+   border-top: 10px solid #26ADE4;
+}
+
+.post {
+   padding: 20px;
+   background: #4DBCE9;
+   border-top: 10px solid #26ADE4;
+}
+
+.post:first-child {
+   background: #D1E751;
+   border-top: none;
+}
+   .post:first-child pre, .post:first-child code {
+      border-color: #4DBCE9;
+   }
+
+.body {
+   margin: 0 0 0 99px;
+}
+
+/* Blog styles
+   alien icon; twisted timestamp et all
+*/
+.alien {
+   font-family: 'Oxygene';
+   font-size: 48px;
+   display: inline-block;
+   width: 56px;
+   padding: 5px;
+   margin: 0 10px;
+   text-align: center;
+}
+
+.relTime {
+   float: left;
+   width: 80px;
+   -moz-transform: rotate(-7.5deg);  
+   -o-transform: rotate(-7.5deg);  
+   -webkit-transform: rotate(-7.5deg);  
+   -ms-transform: rotate(-7.5deg);  
+   transform: rotate(-7.5deg);  
+   filter: progid:DXImageTransform.Microsoft.Matrix( 
+           M11=0.9914448613738104, M12=0.13052619222005157, M21=-0.13052619222005157, M22=0.9914448613738104, sizingMethod='auto expand');
+   zoom: 1;
+}
+
+
+
+/* Helpers (from h5bp)
+*/
+.hidden { display: none; }
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
