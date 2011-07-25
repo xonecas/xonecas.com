@@ -11,8 +11,10 @@ $(function () {
    // Helpers
    // -------
    function relativeTime(time) {
-      var then = new Date(time),
-         now = new Date(),
+      time = _.isNumber(time) ? time * 1000 : time;
+
+      var then = +new Date(time),
+         now = +new Date(),
          timestamp = now - then,
          days = 0, hours = 0;
       

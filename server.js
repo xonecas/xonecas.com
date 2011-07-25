@@ -69,8 +69,8 @@ var routes = function (app) {
    if you don't use cache break use a smaller value
    start the server.
 ---------------------------------------------------------------------------------- */
-var cache = 0,//1000 * 60 * 60 * 24 * 30,
-   port   = 8085, 
+var cache = 1000 * 60 * 60 * 24 * 30,
+   port   = 80, 
    htdocs = __dirname,
    server = connect.createServer(
       // http://senchalabs.github.com/connect/middleware-logger.html
