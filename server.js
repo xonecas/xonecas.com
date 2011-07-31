@@ -1,4 +1,4 @@
-/* ============================================================================
+/* =================================================================
    author: @xonecas
  
    A boiler inspired by apache's .htaccess, that will serve static
@@ -7,42 +7,44 @@
 
    I will keep this up to date with current node and connect versions
    any issues please file a issue :-)
-============================================================================= */
+================================================================= */
 var connect = require('connect'),
+   fs       = require('fs');
    // inspect tool, I use it all the time.
-   inspect = require('util').inspect;
+   inspect  = require('util').inspect;
 
+var paths = [
+   "libs/json2.js",
+   "libs/jquery.js",
+   "libs/underscore.js",
+   "libs/backbone.js",
+], len = paths.length, code = []; 
 
-/* ----------------------------
-   your server code:
----------------------------- */
-var request  = require('request'),
-   tumblrKey = 'IM11cPEsi3jxTeSNwF8BB9Z08UItXcYKiEDLTLvl5RYn6MBcMD';
+(function loop (i) {
+   if (i === len) {
+      fs.writeFile("libs/all.js", code.join('\n'), function (err) {
+         if (err) throw err;
 
+         console.log("Wrote libs/all.js");
+      });
+   }
+   else {
+      fs.readFile(paths.shift(), 'utf8', function (err, out) {
+         if (err) throw err;
 
-
+         code.push(out);
+         loop(i+1);
+      });
+   }
+}) (0);
 
 
 var routes = function (app) {
 
-/* ---------------------------------------------------------------------------------
-   your routes go here
-   you can use app.get, app.post, ...
-   the docs are here: http://senchalabs.github.com/connect/middleware-router.html
----------------------------------------------------------------------------------- */
-   app.get("/proxy/tumblr", function (req, res, next) {
-      
-      request({
-         url: "http://api.tumblr.com/v2/blog/xonecas.tumblr.com/posts/text?api_key="+tumblrKey}).pipe(res);
 
-   });
-
-
-
-
-/* ---------------------------------------------------------------------------------
+/* ------------------------------------------------------------------
    Keep this route last.
----------------------------------------------------------------------------------- */
+------------------------------------------------------------------ */
    app.get('*', function (req, res, next) {
       var url = req.url,
          ua = req.headers['user-agent'];
@@ -64,11 +66,7 @@ var routes = function (app) {
    });
 }
 
-/* ----------------------------------------------------------------------------------
-   set you cache maximum age, in milisecconds.
-   if you don't use cache break use a smaller value
-   start the server.
----------------------------------------------------------------------------------- */
+
 var cache = 1000 * 60 * 60 * 24 * 30,
    port   = 80, 
    htdocs = __dirname,
@@ -82,13 +80,7 @@ var cache = 1000 * 60 * 60 * 24 * 30,
 server.listen(port);
 console.log('Node up!\nPort:   '+port+'\nhtdocs: '+htdocs);
 
-/* -----------------------------------------------------------------------------------
-   this is a failsafe, it will catch the error silently and logged it the console
-   while this works, you should really try to catch the errors with a try/catch block
-   more on this here: 
-      http://nodejs.org/docs/v0.4.3/api/process.html#event_uncaughtException_
-
 process.on('uncaughtException', function (err) {
    console.log('Caught exception: ' + err);
 });
------------------------------------------------------------------------------------ */
+

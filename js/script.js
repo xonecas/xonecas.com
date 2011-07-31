@@ -4,12 +4,9 @@ $(function () {
    // -----------------
    var x = window.x = {};
 
-   // defaults
-   // --------
-   x.alpha = "abcdefghijklmnopqrstuvwxyz";
-
    // Helpers
    // -------
+   // {{{ 8< 
    function relativeTime(time) {
       time = _.isNumber(time) ? time * 1000 : time;
 
@@ -48,10 +45,12 @@ $(function () {
 
       return text;
    }
+   // }}}
 
 
    // Tumblr client
    // -------------
+   // {{{ 8< 
    x.Blog = Backbone.Collection.extend({
       url: "http://api.tumblr.com/v2/blog/xonecas.tumblr.com/posts/text",
       page: 0,
@@ -87,6 +86,10 @@ $(function () {
       el: $('#tumblr'),
       template: $('#_tumblr').html(),
 
+      events: {
+         "mouseover .post": "updateSelected"
+      },
+
       initialize: function () {
          this.collection.fetch();
 
@@ -99,17 +102,27 @@ $(function () {
 
          this.el.empty();
          this.collection.forEach(function (el) {
-            var rnd = Math.floor(Math.random() * x.alpha.length)
-            el.set({"alien": x.alpha[rnd] }, {"silent": true});
             that.el.append(
                _.template(that.template, el.toJSON())
             );
          });
+         this.visible = 0;
+         $("#"+this.collection.at(0).get('id'))
+            .addClass('selectedPost');
+      },
+
+      updateSelected: function (ev) {
+         var that =  this;
+
+         $('.selectedPost').removeClass('selectedPost');
+         $(ev.target).closest('.post').addClass('selectedPost');
       }
    });
+   // }}}
 
    // Twitter client
    // --------------
+   // {{{ 8< 
    x.Tweets = Backbone.Collection.extend({
       url: "http://api.twitter.com/1/statuses/user_timeline.json",
 
@@ -164,12 +177,67 @@ $(function () {
          setTimeout(this.loop, 60 * 1000);
       }
    });
+   // }}}
 
+   x.IndexView = Backbone.View.extend({
+      el: $(document),
+
+      events: {
+         "keypress": "keypressRouter"
+      },
+
+      initialize: function () {
+         this.blog = new x.BlogView();
+         this.tweet = new x.TweetsView();
+      },
+
+      keypressRouter: function (ev) {
+         switch (ev.which) {
+         case 106:
+         case 107:
+            this.jumpTo(ev);
+         break;
+         case 47:
+            ev.preventDefault();
+         break;
+         default:
+            if (console && console.log) {
+               console.log(ev.which);
+            }
+         }
+
+      },
+
+      jumpTo: function (ev) {
+         var that = this,
+            selectedID = parseInt($('.selectedPost')[0].id, 10);
+
+         this.blog.collection.forEach(function (mod, idx) {
+            if (mod.get('id') === selectedID) {
+               that.blog.visible = idx;
+            }
+         });
+
+         var modifier = ev.which === 106 ? 1 : -1,
+            idx = this.blog.visible + modifier,
+            post = this.blog.collection.at(idx);
+
+         if (post) {
+            var $el = $('#'+post.get('id')),
+               offset = idx !== 0 ? $el.offset().top - 100: 0;
+
+            $('.selectedPost').removeClass('selectedPost');
+            $el.addClass('selectedPost');
+            window.scroll(0, offset); // make this smooooooth
+            this.blog.visible = idx;
+         }
+
+      }
+   });
 
    // main
    // ----
-   x.b = new x.BlogView();
-   x.t = new x.TweetsView();
+   x.index = new x.IndexView();
    
    return x;
 

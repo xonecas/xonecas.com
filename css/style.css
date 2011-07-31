@@ -1,3 +1,8 @@
+/* Google font api
+   News cycle (sans-serif)
+*/
+@import url(http://fonts.googleapis.com/css?family=News+Cycle);
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -47,22 +52,8 @@ table {
 	border-spacing: 0;
 }
 
-/* Font kits, from FontSquirrel.com
-*/
-@font-face {
-    font-family: 'Oxygene';
-    src: url('OXYGENE1-webfont.eot');
-    src: url('OXYGENE1-webfont.eot?#iefix') format('embedded-opentype'),
-         url('OXYGENE1-webfont.woff') format('woff'),
-         url('OXYGENE1-webfont.ttf') format('truetype'),
-         url('OXYGENE1-webfont.svg#Oxygene1Regular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
 /* From the html5boilerplate
-   h5bp.com (modified)
+   h5bp.com
 */
 html { 
    font-size: 100%; 
@@ -70,37 +61,38 @@ html {
    -webkit-tap-highlight-color: rgba(0,0,0,0); 
    -webkit-text-size-adjust: 100%; 
    -ms-text-size-adjust: 100%; 
-   background: #343838;
 }
 body { 
    margin: 0; 
-   font-size: 14px; 
-   line-height: 1.231; 
-   border-right: 20px solid #00DFFC;
+   font-size: 16px; 
+   line-height: 1.4; 
 }
 body, button, input, select, textarea { 
-   font-family: 'Helvetica', sans-serif; 
-   color: #fff; 
+   font-family: "News Cycle", sans-serif; 
+   color: #222; 
 }
 
-::-moz-selection { background: #00DFFC; color: #343838; text-shadow: none; }
-::selection { background: #00DFFC; color: #343838; text-shadow: none; }
+::-moz-selection { background: #000; color: #fff; text-shadow: none; }
+::selection { background: #000; color: #fff; text-shadow: none; }
 
 a { 
-   color: #00B4CC; 
+   color: #E56354; 
    text-decoration: none;
+   border-bottom: 1px solid #E56354;
 }
-a:visited { color: #008C9E; }
+a:visited { 
+   color: #8A3C33; 
+   border-bottom: #8A3C33;
+}
 a:focus { outline: thin dotted; }
 a:hover, a:active { 
    outline: 0; 
-   color: #00DFFC;
+   background-color: #eee; 
 }
 pre, code, kbd, samp { 
-   font-family:  monospace, monospace; 
+   font-family: monospace, monospace; 
    _font-family: 'courier new', monospace; 
-   font-size: 1em; 
-   padding: 4px 6px;
+   font-size: .9em; 
 }
 pre { 
    white-space: pre; 
@@ -111,85 +103,68 @@ pre {
 /* Main styles
    by @xonecas
 */
-
-h1, h2 {
-   font-family: 'Georgia', serif;
-   font-weight: bold;
-   text-shadow: 1px 1px 3px #000; 
-   font-family: 'Oxygene', monospace;
-   text-transform: uppercase;
+body {
+   width: 960px;
+   margin: 0 auto;
 }
 
-h1 {
-   font-size: 64px;
-   padding: 10px 0;
+.loader {
+   display: block;
+   width: 64px;
+   height: 64px;
+   margin: 0 auto;
 }
 
-h2 {
+#guide {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+}
+
+#brand {
+   background: url("/imgs/me.png") no-repeat scroll left 50% transparent;
+   padding: 0 0 10px 58px;
    font-size: 48px;
 }
 
+#latestTweet {
+   margin: 2em 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   margin: 1em 0;
+   font-weight: bold;
+}
+
+h2 { font-size: 36px; }
+h3 { font-size: 24px; }
 
 em { font-style: italic; }
 strong { font-weight: bold; }
 
-p { margin: 1em 0; }
-
-pre, code {
-   background: #005F6B;
-   border-left: 10px solid #008C9E;
-}
-pre code {
-   border: none;
-}
-
-header {
-   margin: 0 0 0 130px;
-}
-
-header, section {
-   border-right: 10px solid #00B4CC;
-}
-
-#latestTweet {
-   padding: 20px;
-}
-
 .post {
-   padding: 20px 0 20px 20px;
+   margin: 0 0 20em;
+   padding: 0 0 2em 10px;
+   border-left: 1px solid transparent;
+}
+.selectedPost {
+   border-left: 1px solid #E56354;
 }
 
-.body {
-   margin: 0 0 0 110px;
-   padding: 0 20px 0 0;
+.relTime { 
+   float: right;
+   margin: 2em 0 0 0;
 }
-
-/* Blog styles
-   alien icon; twisted timestamp et all
-*/
-.alien {
-   text-transform: lowercase;
-   display: inline-block;
-   width: 56px;
-   padding: 5px;
-   margin: 0 10px;
-   text-align: center;
+pre { 
+   margin: 1em 0; 
+   padding: 10px;
 }
-
-.relTime {
-   float: left;
-   width: 80px;
-   -moz-transform: rotate(-7.5deg);  
-   -o-transform: rotate(-7.5deg);  
-   -webkit-transform: rotate(-7.5deg);  
-   -ms-transform: rotate(-7.5deg);  
-   transform: rotate(-7.5deg);  
-   filter: progid:DXImageTransform.Microsoft.Matrix( 
-           M11=0.9914448613738104, M12=0.13052619222005157, M21=-0.13052619222005157, M22=0.9914448613738104, sizingMethod='auto expand');
-   zoom: 1;
+pre, code {
+   background: #eee;
+   border-left: 5px solid #999;
 }
-
-
+pre code { border: none; }
+code { padding: 3px 5px; }
 
 /* Helpers (from h5bp)
 */
@@ -197,4 +172,3 @@ header, section {
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
-
