@@ -28,7 +28,9 @@
       <img class="loader" src="imgs/ajax-loader.gif" alt="Loading...">
    </section>
    
-
+   <section id="coderwall" class="clearfix">
+      <img class="loader" src="imgs/ajax-loader.gif" alt="Loading...">
+   </section>
 
 
 
@@ -42,6 +44,8 @@
          <span><%= text %></span>
          <em><%= relTime %></em>
       </script>     
+
+
       <script id="_tumblr" type="text/template">
          <li id="<%= id %>" class="post clearfix">
             <span class="relTime"><%= relTime %></span>
@@ -52,6 +56,15 @@
                <%= body %>
             </div>
          </li>
+      </script>
+
+
+      <script id="_coderwall" type="text/template">
+         <div class="badge">
+            <img class="badgeImage" src="<%= badge %>" alt="<%= name %>">
+            <h3 class="badgeTitle"><%= name %></h3>
+            <p class="badgeText"><%= description %></p>
+         </div>
       </script>
    </div>
 

@@ -47,7 +47,6 @@ $(function () {
    }
    // }}}
 
-
    // Tumblr client
    // -------------
    // {{{ 8< 
@@ -179,6 +178,48 @@ $(function () {
    });
    // }}}
 
+   // Coderwall client
+   // ----------------
+   // {{{ 8< 
+   x.Badges = Backbone.Collection.extend({
+      url: "http://coderwall.com/xonecas.json",
+
+      parse: function (res, xhr) {
+         return res.data.badges;
+      },
+   
+      sync: function (model, method, options) {
+         var params = _.extend(options, {
+            "url": this.url,
+            "dataType": "jsonp"
+         });
+
+         return $.ajax(params);
+      }
+   });
+
+   x.BadgesView = Backbone.View.extend({
+      collection: new x.Badges(),
+      el: $("#coderwall"),
+      template: $('#_coderwall').html(),
+
+      initialize: function () {
+         _.bindAll(this, 'render');
+         this.collection.bind('reset', this.render);
+         this.collection.fetch();
+      },
+
+      render: function () {
+         var that = this;
+
+         this.el.empty();
+         this.collection.each(function (badge) {
+            that.el.append(_.template(that.template, badge.toJSON()));
+         });
+      }
+   });
+   // }}}
+
    x.IndexView = Backbone.View.extend({
       el: $(document),
 
@@ -189,6 +230,7 @@ $(function () {
       initialize: function () {
          this.blog = new x.BlogView();
          this.tweet = new x.TweetsView();
+         this.badges = new x.BadgesView();
       },
 
       keypressRouter: function (ev) {

@@ -1,0 +1,4 @@
+# ignore static assets
+
+./libs/all.js
+.swp$

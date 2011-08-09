@@ -124,11 +124,12 @@ body {
 #brand {
    background: url("/imgs/me.png") no-repeat scroll left 50% transparent;
    padding: 0 0 10px 58px;
-   font-size: 48px;
+   font-size: 40px;
 }
 
 #latestTweet {
-   margin: 2em 0;
+   text-align: center;
+   margin: 2em 0 6em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -166,9 +167,57 @@ pre, code {
 pre code { border: none; }
 code { padding: 3px 5px; }
 
+
+
+.badge {
+   width: 46%;
+   float: right;
+   margin: 0 2% 40px;
+}
+
+.badgeImage {
+   width: 64px;
+   height: 64px;
+   float: left;
+   margin: 0 20px 0 0;
+}
+
+.badgeTitle {
+   position: relative;
+   bottom: 12px;
+}
+
+.badgeText {
+   margin: 0 0 0 84px;
+}
+
 /* Helpers (from h5bp)
 */
 .hidden { display: none; }
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
+
+
+
+
+/* Media style changes
+ * For mobile and shit
+ */
+@media only screen and (max-width: 480px) {
+   /* Style adjustments for viewports 480px and over go here */ 
+   body {
+      margin: 0 auto;
+      width: 460px;
+      font-size: 13px;
+   }
+
+   h2 { font-size: 30px; }
+   h3 { font-size: 20px; }
+}
+
+@media only screen and (max-width: 768px) {
+   /* Style adjustments for viewports 768px and over go here */
+
+}
+

@@ -27,8 +27,7 @@ var paths = [
 
          console.log("Wrote libs/all.js");
       });
-   }
-   else {
+   } else {
       fs.readFile(paths.shift(), 'utf8', function (err, out) {
          if (err) throw err;
 
@@ -83,4 +82,3 @@ console.log('Node up!\nPort:   '+port+'\nhtdocs: '+htdocs);
 process.on('uncaughtException', function (err) {
    console.log('Caught exception: ' + err);
 });
-
