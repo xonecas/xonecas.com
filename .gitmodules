@@ -1,3 +1,9 @@
 [submodule "creativejs-threejs-part1"]
 	path = creativejs-threejs-part1
 	url = git@github.com:xonecas/creativejs-threejs-part1.git
+[submodule "fractal-tree"]
+	path = fractal-tree
+	url = git@github.com:xonecas/fractal-tree.git
+[submodule "2d-particle-experiements"]
+	path = 2d-particle-experiements
+	url = git@github.com:xonecas/2d-particle-experiements.git
