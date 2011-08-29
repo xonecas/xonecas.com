@@ -66,8 +66,8 @@ var routes = function (app) {
 }
 
 
-var cache = 1000 * 60 * 60 * 24 * 30,
-   port   = 80, 
+var cache = 0,//1000 * 60 * 60 * 24 * 30,
+   port   = 8080, 
    htdocs = __dirname,
    server = connect.createServer(
       // http://senchalabs.github.com/connect/middleware-logger.html
@@ -79,6 +79,8 @@ var cache = 1000 * 60 * 60 * 24 * 30,
 server.listen(port);
 console.log('Node up!\nPort:   '+port+'\nhtdocs: '+htdocs);
 
+/*
 process.on('uncaughtException', function (err) {
    console.log('Caught exception: ' + err);
 });
+*/

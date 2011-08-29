@@ -14,8 +14,13 @@
 </head>
 <body>
    <header>
-      <span id="guide">Use j/k to move up/down</span>
-      <h1 id="brand">Sean Caetano Martin</h1>
+      <em class=relTime>
+         Built with: 
+         <a href="//xonecas.tumblr.com/" title="Tumblr">Tumblr</a>
+         <a href="//twitter.com/xonecas" title="Tumblr">Twitter</a>
+         <a href="//coderwall.com/xonecas" title="Tumblr">Coderwall</a>
+      </em>
+      <h1><img id="brand" src="imgs/me.png" alt="me!">Sean Caetano Martin</h1>
    </header>
 
    <section id="content">
@@ -24,15 +29,13 @@
       </ul>
    </section>
 
-   <section id="latestTweet">
-      <img class="loader" src="imgs/ajax-loader.gif" alt="Loading...">
-   </section>
-   
    <section id="coderwall" class="clearfix">
       <img class="loader" src="imgs/ajax-loader.gif" alt="Loading...">
    </section>
 
-
+   <section id="latestTweet">
+      <img class="loader" src="imgs/ajax-loader.gif" alt="Loading...">
+   </section>
 
 
    <!--
@@ -40,9 +43,11 @@
    -->
    <div class="hidden">
        <script id="_latestTweet" type="text/template">
-         <strong>@<a href="//twitter.com/xonecas">xonecas</a></strong>
-         <span><%= text %></span>
-         <em><%= relTime %></em>
+         <div class="">
+            <strong>@<a href="//twitter.com/xonecas">xonecas</a></strong>
+            <span><%= text %></span>
+            <em><%= relTime %></em>
+         </div>
       </script>     
 
 
@@ -60,7 +65,7 @@
 
 
       <script id="_coderwall" type="text/template">
-         <div class="badge">
+         <div class="badge clearfix">
             <img class="badgeImage" src="<%= badge %>" alt="<%= name %>">
             <h3 class="badgeTitle"><%= name %></h3>
             <p class="badgeText"><%= description %></p>

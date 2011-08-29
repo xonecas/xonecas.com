@@ -1,7 +1,9 @@
 /* Google font api
-   News cycle (sans-serif)
+   Walter turncoat
 */
-@import url(http://fonts.googleapis.com/css?family=News+Cycle);
+
+@import url(http://fonts.googleapis.com/css?family=Walter+Turncoat);
+
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -55,44 +57,19 @@ table {
 /* From the html5boilerplate
    h5bp.com
 */
-html { 
-   font-size: 100%; 
-   overflow-y: scroll; 
-   -webkit-tap-highlight-color: rgba(0,0,0,0); 
-   -webkit-text-size-adjust: 100%; 
-   -ms-text-size-adjust: 100%; 
-}
-body { 
-   margin: 0; 
-   font-size: 16px; 
-   line-height: 1.4; 
-}
-body, button, input, select, textarea { 
-   font-family: "News Cycle", sans-serif; 
-   color: #222; 
-}
-
-::-moz-selection { background: #000; color: #fff; text-shadow: none; }
-::selection { background: #000; color: #fff; text-shadow: none; }
-
 a { 
-   color: #E56354; 
+   color: hsl(200, 100%, 50%); 
    text-decoration: none;
-   border-bottom: 1px solid #E56354;
+   border-bottom: 1px solid hsl(200, 100%, 50%);
 }
 a:visited { 
-   color: #8A3C33; 
-   border-bottom: #8A3C33;
+   color: hsl(195, 100%, 50%); 
+   border-bottom: hsl(195, 100%, 50%);
 }
 a:focus { outline: thin dotted; }
 a:hover, a:active { 
    outline: 0; 
    background-color: #eee; 
-}
-pre, code, kbd, samp { 
-   font-family: monospace, monospace; 
-   _font-family: 'courier new', monospace; 
-   font-size: .9em; 
 }
 pre { 
    white-space: pre; 
@@ -104,58 +81,28 @@ pre {
    by @xonecas
 */
 body {
-   width: 960px;
+   width: 720px;
    margin: 0 auto;
-}
-
-.loader {
-   display: block;
-   width: 64px;
-   height: 64px;
-   margin: 0 auto;
-}
-
-#guide {
-   position: absolute;
-   top: 10px;
-   right: 10px;
-}
-
-#brand {
-   background: url("/imgs/me.png") no-repeat scroll left 50% transparent;
-   padding: 0 0 10px 58px;
-   font-size: 40px;
-}
-
-#latestTweet {
-   text-align: center;
-   margin: 2em 0 6em;
+   padding: 40px 0;
+   font-family: sans-serif;
+   font-size: 13px;
+   line-height: 16px;
+   position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
-   margin: 1em 0;
+   font-family: "Walter Turncoat";
+   margin: 0 0 1em 0;
    font-weight: bold;
+   line-height: 1.1em;
 }
-
+h1 { font-size: 48px; }
 h2 { font-size: 36px; }
 h3 { font-size: 24px; }
 
 em { font-style: italic; }
 strong { font-weight: bold; }
 
-.post {
-   margin: 0 0 20em;
-   padding: 0 0 2em 10px;
-   border-left: 1px solid transparent;
-}
-.selectedPost {
-   border-left: 1px solid #E56354;
-}
-
-.relTime { 
-   float: right;
-   margin: 2em 0 0 0;
-}
 pre { 
    margin: 1em 0; 
    padding: 10px;
@@ -167,29 +114,64 @@ pre, code {
 pre code { border: none; }
 code { padding: 3px 5px; }
 
+header { 
+   border-bottom: 1px solid hsl(200, 100%, 50%);
+}
 
+.loader {
+   display: block;
+   width: 16px;
+   height: 16px;
+   margin: 40px auto;
+}
+
+#brand {
+   vertical-align: middle;
+   margin: -5px 10px 0 0;
+}
+
+#latestTweet {
+   position: fixed;
+   bottom: 0;
+   background: #FFF;
+   width: 720px;
+   border-top: 1px solid hsl(200, 100%, 50%);
+   padding: 10px 0;
+}
+
+#coderwall {
+   padding: 20px 0;
+   border-top: 1px solid hsl(200, 100%, 50%);
+}
+
+.relTime {
+   position: absolute;
+   top: 5px;
+   right: 0;
+   color: #aeaeae;
+}
+
+.post {
+   padding: 25px 0 0 0;
+   margin: 0 0 20px 0;
+   position: relative;
+}
+.post ul, .post ol {
+   list-style: disc;
+   margin: 0 0 0 20px;
+}
 
 .badge {
-   width: 46%;
-   float: right;
-   margin: 0 2% 40px;
+   margin: 0 0 20px 0;
 }
 
 .badgeImage {
+   float: left;
    width: 64px;
    height: 64px;
-   float: left;
    margin: 0 20px 0 0;
 }
 
-.badgeTitle {
-   position: relative;
-   bottom: 12px;
-}
-
-.badgeText {
-   margin: 0 0 0 84px;
-}
 
 /* Helpers (from h5bp)
 */
@@ -206,14 +188,6 @@ code { padding: 3px 5px; }
  */
 @media only screen and (max-width: 480px) {
    /* Style adjustments for viewports 480px and over go here */ 
-   body {
-      margin: 0 auto;
-      width: 460px;
-      font-size: 13px;
-   }
-
-   h2 { font-size: 30px; }
-   h3 { font-size: 20px; }
 }
 
 @media only screen and (max-width: 768px) {

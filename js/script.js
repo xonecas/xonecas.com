@@ -85,10 +85,6 @@ $(function () {
       el: $('#tumblr'),
       template: $('#_tumblr').html(),
 
-      events: {
-         "mouseover .post": "updateSelected"
-      },
-
       initialize: function () {
          this.collection.fetch();
 
@@ -109,13 +105,6 @@ $(function () {
          $("#"+this.collection.at(0).get('id'))
             .addClass('selectedPost');
       },
-
-      updateSelected: function (ev) {
-         var that =  this;
-
-         $('.selectedPost').removeClass('selectedPost');
-         $(ev.target).closest('.post').addClass('selectedPost');
-      }
    });
    // }}}
 
@@ -223,10 +212,6 @@ $(function () {
    x.IndexView = Backbone.View.extend({
       el: $(document),
 
-      events: {
-         "keypress": "keypressRouter"
-      },
-
       initialize: function () {
          this.blog = new x.BlogView();
          this.tweet = new x.TweetsView();
@@ -249,32 +234,6 @@ $(function () {
          }
 
       },
-
-      jumpTo: function (ev) {
-         var that = this,
-            selectedID = parseInt($('.selectedPost')[0].id, 10);
-
-         this.blog.collection.forEach(function (mod, idx) {
-            if (mod.get('id') === selectedID) {
-               that.blog.visible = idx;
-            }
-         });
-
-         var modifier = ev.which === 106 ? 1 : -1,
-            idx = this.blog.visible + modifier,
-            post = this.blog.collection.at(idx);
-
-         if (post) {
-            var $el = $('#'+post.get('id')),
-               offset = idx !== 0 ? $el.offset().top - 100: 0;
-
-            $('.selectedPost').removeClass('selectedPost');
-            $el.addClass('selectedPost');
-            window.scroll(0, offset); // make this smooooooth
-            this.blog.visible = idx;
-         }
-
-      }
    });
 
    // main
