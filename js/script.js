@@ -104,7 +104,7 @@ $(function () {
          this.visible = 0;
          $("#"+this.collection.at(0).get('id'))
             .addClass('selectedPost');
-      },
+      }
    });
    // }}}
 
@@ -218,6 +218,10 @@ $(function () {
          this.badges = new x.BadgesView();
       },
 
+      events: {
+         'click' : "keypressRouter"
+      },
+
       keypressRouter: function (ev) {
          switch (ev.which) {
          case 106:
@@ -233,7 +237,7 @@ $(function () {
             }
          }
 
-      },
+      }
    });
 
    // main
