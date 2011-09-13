@@ -8,75 +8,43 @@
 
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-   <link rel="stylesheet" href="css/style.css?v=0.0.2">
 
-   <script src="libs/modernizr.js?v=0.0.2"></script>
+
+   <link rel="stylesheet/less" type="text/css" href="less/style.less?v=0.0.3">
+   <script src="vendor/less.js?v=0.0.3"></script>
+   <script src="vendor/modernizr.js?v=0.0.3"></script>
 </head>
 <body>
-   <header>
-      <em class=relTime>
-         Built with: 
-         <a href="//xonecas.tumblr.com/" title="Tumblr">Tumblr</a>
-         <a href="//twitter.com/xonecas" title="Tumblr">Twitter</a>
-         <a href="//coderwall.com/xonecas" title="Tumblr">Coderwall</a>
-      </em>
-      <h1><img id="brand" src="imgs/me.png" alt="me!">Sean Caetano Martin</h1>
-   </header>
-
-   <section id="content">
-      <ul id="tumblr">
-         <li><img class="loader" src="imgs/ajax-loader.gif" alt="Loading..."></li>
-      </ul>
-   </section>
-
-   <section id="coderwall" class="clearfix">
-      <img class="loader" src="imgs/ajax-loader.gif" alt="Loading...">
-   </section>
-
-   <section id="latestTweet">
-      <img class="loader" src="imgs/ajax-loader.gif" alt="Loading...">
-   </section>
-
 
    <!--
       Templates go in this magic div that no one sees
    -->
-   <div class="hidden">
-       <script id="_latestTweet" type="text/template">
-         <div class="">
-            <strong>@<a href="//twitter.com/xonecas">xonecas</a></strong>
-            <span><%= text %></span>
-            <em><%= relTime %></em>
-         </div>
-      </script>     
+   <script id="post_tmpl" type="text/template">
+      <h1>{{title}}</h1>
+      <div class="post_body">
+         {{{body}}}
+      </div>
+      <aside>
+         <a href="{{post_url}}" title="{{post_url}}">permalink</a>,
+         on {{date}} ({{timestamp}}).
+      </aside>
+   </script>     
 
+   <script id="error_tmpl" type="text/template">
+      An error has occured: {{error}}. <small>Leaving in 5 secs</small>
+   </script>     
 
-      <script id="_tumblr" type="text/template">
-         <li id="<%= id %>" class="post clearfix">
-            <span class="relTime"><%= relTime %></span>
-            <h2 class="title">
-               <%= title %>
-            </h2>
-            <div class="body">
-               <%= body %>
-            </div>
-         </li>
-      </script>
-
-
-      <script id="_coderwall" type="text/template">
-         <div class="badge clearfix">
-            <img class="badgeImage" src="<%= badge %>" alt="<%= name %>">
-            <h3 class="badgeTitle"><%= name %></h3>
-            <p class="badgeText"><%= description %></p>
-         </div>
-      </script>
-   </div>
 
    <!--
       Dependencies
    -->
-   <script src="libs/all.js?v=0.0.2"></script>
-   <script src="js/script.js?v=0.0.2"></script>
+   <script src="vendor/json2.js?v=0.0.3"></script>
+   <script src="vendor/jquery.js?v=0.0.3"></script>
+   <script src="vendor/handlebars.js?v=0.0.3"></script>
+   <script src="vendor/underscore.js?v=0.0.3"></script>
+   <script src="vendor/backbone.js?v=0.0.3"></script>
+
+   <!-- app -->
+   <script src="js/script.js?v=0.0.3"></script>
 </body>
 </html>
