@@ -8,14 +8,12 @@
 
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-
-   <link rel="stylesheet/less" type="text/css" href="less/style.less?v=0.0.3">
+   <link rel="stylesheet/less" type="text/css" href="bootstrap/lib/bootstrap.less?v=0.0.3">
+   <link rel="stylesheet/less" type="text/css" href="styles/base.less?v=0.0.3">
    <script src="vendor/less.js?v=0.0.3"></script>
    <script src="vendor/modernizr.js?v=0.0.3"></script>
 </head>
 <body>
-
    <!--
       Templates go in this magic div that no one sees
    -->
@@ -30,6 +28,18 @@
       </aside>
    </script>     
 
+   <script id="header_tmpl" type="text/template">
+      <div class="topbar-inner">
+         <div class="container">
+            <h3><a href="/">xonecas</a></h3>
+            <ul class="nav">
+               <li><a id="prev-post" href="#">Previous</a></li>
+               <li><a id="next-post" href="#">Next</a></li>
+            </ul>
+         </div>
+      </div>
+   </script>
+
    <script id="error_tmpl" type="text/template">
       An error has occured: {{error}}. <small>Leaving in 5 secs</small>
    </script>     
@@ -43,6 +53,7 @@
    <script src="vendor/handlebars.js?v=0.0.3"></script>
    <script src="vendor/underscore.js?v=0.0.3"></script>
    <script src="vendor/backbone.js?v=0.0.3"></script>
+   <script src="vendor/hijs.js?v=0.0.3"></script>
 
    <!-- app -->
    <script src="js/script.js?v=0.0.3"></script>

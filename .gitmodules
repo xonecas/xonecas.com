@@ -7,3 +7,6 @@
 [submodule "2d-particle-experiements"]
 	path = 2d-particle-experiements
 	url = git@github.com:xonecas/2d-particle-experiements.git
+[submodule "bootstrap"]
+	path = bootstrap
+	url = https://github.com/twitter/bootstrap.git

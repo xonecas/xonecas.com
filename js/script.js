@@ -36,10 +36,17 @@ $(function () {
 
       next: function () {
          this.idx++;
+         if (this.idx + (this.count * this.page) === this.total) {
+            console.log('no more :-(');
+            this.idx--;
+            return;
+         }
+
          var model = this.at(this.idx);
 
          if (model) {
             this.current = model;
+            this.trigger('change');
          } else {
             this.page++;
             this.idx = 0;
@@ -53,12 +60,14 @@ $(function () {
 
          if (model) {
             this.current = model;
+            this.trigger('change');
          } else {
             if (this.page > 0) {
                this.page--;
                this.idx = this.count -1;
                this.fetch();
             } else {
+               this.idx++;
                this.trigger('error', 'At most recent post');
             }
          }
@@ -66,36 +75,29 @@ $(function () {
       }
    });
 
-   ErrorReport = Backbone.View.extend({
-      id:         'error',
-      className:  'container',
-      template:   Handlebars.compile($('#error_tmpl').html()),
-
-      initialize: function () {
-         _.bindAll(this, "remove");
-         this.render();
-      },
-
-      render: function () {
-         $('#main').append(this.template(this.error));
-         setTimeout(this.remove, 5000);
-         return this;
-      }
-   });
-
    HomePage = Backbone.View.extend({
       id:         'main',
       className:  'container',
+      tagName:    'section',
       template:   Handlebars.compile($('#post_tmpl').html()),
       collection: new Tumblr(),
 
       initialize: function () {
+         this.header = new Header({
+            'collection': this.collection
+         });
+         this.header.render();
          _.bindAll(this, "render", "report");
          this.collection.bind('reset', this.render);
          this.collection.bind('error', this.report);
+         this.collection.bind('change', this.render);
          this.collection.fetch();
       
-         $(this.el).appendTo('body');
+         $('body').append(this.el);
+      },
+
+      report: function (err) {
+         console.log(err);
       },
 
       render: function () {
@@ -104,12 +106,36 @@ $(function () {
             .css('display', 'none')
             .html(this.template(model.toJSON()))
             .fadeIn(1000);
-         
+         hijs('code');         
+      }
+   });
+
+   Header = Backbone.View.extend({
+      className: 'topbar',
+      tagName: 'div',
+      template: $('#header_tmpl').html(),
+
+      render: function () {
+         $(this.el)
+            .html(this.template)
+            .appendTo('body');
       },
 
-      report: function (error) {
-         this.errors = this.errors || [];
-         this.errors.push(new ErrorReport().render());
+      events: {
+         "click #prev-post": "previous",
+         "click #next-post": "next"
+      },
+
+      previous: function (ev) {
+         ev.preventDefault();
+         this.collection.previous();
+         return false;
+      },
+
+      next: function (ev) {
+         ev.preventDefault();
+         this.collection.next();
+         return false;
       }
    });
 

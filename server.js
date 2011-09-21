@@ -13,31 +13,6 @@ var connect = require('connect'),
    // inspect tool, I use it all the time.
    inspect  = require('util').inspect;
 
-var paths = [
-   "libs/json2.js",
-   "libs/jquery.js",
-   "libs/underscore.js",
-   "libs/backbone.js",
-], len = paths.length, code = []; 
-
-(function loop (i) {
-   if (i === len) {
-      fs.writeFile("libs/all.js", code.join('\n'), function (err) {
-         if (err) throw err;
-
-         console.log("Wrote libs/all.js");
-      });
-   } else {
-      fs.readFile(paths.shift(), 'utf8', function (err, out) {
-         if (err) throw err;
-
-         code.push(out);
-         loop(i+1);
-      });
-   }
-}) (0);
-
-
 var routes = function (app) {
 
 
