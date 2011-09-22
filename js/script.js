@@ -37,7 +37,7 @@ $(function () {
       next: function () {
          this.idx++;
          if (this.idx + (this.count * this.page) === this.total) {
-            console.log('no more :-(');
+            this.trigger('error', 'At oldest post.');
             this.idx--;
             return;
          }
@@ -68,7 +68,7 @@ $(function () {
                this.fetch();
             } else {
                this.idx++;
-               this.trigger('error', 'At most recent post');
+               this.trigger('error', 'At most recent post.');
             }
          }
 
@@ -97,7 +97,7 @@ $(function () {
       },
 
       report: function (err) {
-         console.log(err);
+         smoke.alert(err);
       },
 
       render: function () {
