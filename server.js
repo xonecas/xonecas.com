@@ -15,6 +15,13 @@ var connect = require('connect'),
 
 var routes = function (app) {
 
+   app.get('/reader', function (req, res, next) {
+      res.writeHead(302, {
+         'content-type' : 'text/plain',
+         'location'     : 'localhost:8081'
+      });
+      res.end('Redirect to reader');
+   });
 
 /* ------------------------------------------------------------------
    Keep this route last.

@@ -1,17 +1,28 @@
-$(function () {
-   Tumblr = Backbone.Collection.extend({
+var xonecas = !function () {
+
+   function linkit (text) {
+      text = text.replace(
+         /(ftp|http|https|file):\/\/[\S]+(\b|$)/gim,
+         '<a href="$&" target="_new">$&</a>');
+      text = text.replace(/@\w+\s/gi, function (match) {
+         match = match.substring(0, match.length -1);
+         return '<a href="//twitter.com/'+match.substring(1)+'">'+match+'</a> ';
+      });
+
+      return text;
+   }
+
+   var Tumblr = Backbone.Collection.extend({
       url: "http://api.tumblr.com/v2/blog/xonecas.tumblr.com/posts/text",
       page: 0,
-      count: 6,
+      count: 5,
       idx: 0,
 
       initialize: function () {
-         _.bindAll(this, "setCurrent");
-         this.bind('reset', this.setCurrent);
       },
 
       parse: function (res, xhr) {
-         this.total = res.response.total_posts;
+         this.total = Math.ceil(res.response.total_posts/this.count);
          return res.response.posts;
       },
 
@@ -30,95 +41,82 @@ $(function () {
          return $.ajax(params);
       },
 
-      setCurrent: function () {
-         this.current = this.at(this.idx);
-      },
-
       next: function () {
-         this.idx++;
-         if (this.idx + (this.count * this.page) === this.total) {
-            this.trigger('error', 'At oldest post.');
-            this.idx--;
-            return;
-         }
-
-         var model = this.at(this.idx);
-
-         if (model) {
-            this.current = model;
-            this.trigger('change');
+         if (this.page +1 === this.total) {
+            this.trigger('error', "That's it, you've read it all!");
          } else {
             this.page++;
-            this.idx = 0;
             this.fetch();
          }
       },
 
       previous: function () {
-         this.idx--;
-         var model = this.at(this.idx);
-
-         if (model) {
-            this.current = model;
-            this.trigger('change');
+         if (this.page -1 === -1) {
+            this.trigger('error', "No newer posts.");
          } else {
-            if (this.page > 0) {
-               this.page--;
-               this.idx = this.count -1;
-               this.fetch();
-            } else {
-               this.idx++;
-               this.trigger('error', 'At most recent post.');
-            }
+            this.page--;
+            this.fetch();
          }
-
       }
    });
 
-   HomePage = Backbone.View.extend({
-      id:         'main',
-      className:  'container',
-      tagName:    'section',
-      template:   Handlebars.compile($('#post_tmpl').html()),
-      collection: new Tumblr(),
+   var Twitter = Backbone.Collection.extend({
+      url: "http://api.twitter.com/1/statuses/user_timeline.json",
+      count: 5,
 
-      initialize: function () {
-         this.header = new Header({
-            'collection': this.collection
+      parse: function (res) {
+         _.each(res, function (tweet) {
+            tweet.text = linkit(tweet.text);
          });
-         this.header.render();
-         _.bindAll(this, "render", "report");
-         this.collection.bind('reset', this.render);
-         this.collection.bind('error', this.report);
-         this.collection.bind('change', this.render);
-         this.collection.fetch();
-      
-         $('body').append(this.el);
+
+         return res;
       },
 
-      report: function (err) {
-         smoke.alert(err);
-      },
+      sync: function (model, method, options) {
+         var params = _.extend(options, {
+            "url": this.url,
+            "data": {
+               "screen_name": "xonecas",
+               "count": this.count,
+               "trim_user": true,
+               "include_rts": true,
+               "exclude_replies": true
+            },
+            "dataType": "jsonp"
+         });
 
-      render: function () {
-         var model = this.collection.current;
-         $(this.el)
-            .css('display', 'none')
-            .html(this.template(model.toJSON()))
-            .fadeIn(1000);
-         hijs('code');         
+         return $.ajax(params);
       }
    });
 
-   Header = Backbone.View.extend({
+   Badges = Backbone.Collection.extend({
+      url: "http://coderwall.com/xonecas.json",
+
+      parse: function (res, xhr) {
+         return res.data.badges;
+      },
+   
+      sync: function (model, method, options) {
+         var params = _.extend(options, {
+            "url": this.url,
+            "dataType": "jsonp"
+         });
+
+         return $.ajax(params);
+      }
+   });
+
+
+   var Header = Backbone.View.extend({
       className: 'topbar',
-      tagName: 'div',
-      template: $('#header_tmpl').html(),
+      tagName: 'header',
+      template: '#header_tmpl',
 
       render: function () {
          $(this.el)
-            .html(this.template)
-            .appendTo('body');
+            .html($(this.template).html())
+            .appendTo('body')
+            .dropdown();
       },
 
       events: {
@@ -139,6 +137,81 @@ $(function () {
       }
    });
 
-   // main
-   window.app = new HomePage();
-});
+   var Footer = Backbone.View.extend({
+      className:  'container',
+      tagName:    'footer',
+      template:   '#footer_tmpl',
+
+      initialize: function () {
+         _.bindAll(this, "render");
+         this.twitter = new Twitter();
+         this.twitter.bind('reset', this.render);
+         this.twitter.fetch();
+
+         this.badges = new Badges();
+         this.badges.bind('reset', this.render);
+         this.badges.fetch();
+      },
+
+      render: function () {
+         var 
+            template = Handlebars.compile($(this.template).html()),
+            context = {
+               twitter: this.twitter.toJSON(),
+               badges: this.badges.toJSON()
+            };
+
+         $(this.el)
+            .html(template(context))
+            .appendTo('body');
+      }
+   }); 
+
+   var Page = Backbone.View.extend({
+      id:         'main',
+      className:  'container',
+      tagName:    'section',
+      template:   '#post_tmpl',
+      collection: new Tumblr(),
+
+      initialize: function () {
+         this.header = new Header({
+            'collection': this.collection
+         });
+         this.footer = new Footer();
+         _.bindAll(this, "render", "report");
+         this.collection.bind('reset', this.render);
+         this.collection.bind('error', this.report);
+         this.collection.bind('change', this.render);
+         this.collection.fetch();
+      
+         this.header.render();
+         $('body').append(this.el);
+         this.footer.render();
+      },
+
+      report: function (err) {
+         smoke.alert(err);
+      },
+
+      render: function () {
+         var 
+            html = "",
+            template = Handlebars.compile($(this.template).html());
+
+         this.collection.each(function (model) {
+            html += template(model.toJSON());
+         });
+
+         $(this.el)
+            .css('display', 'none')
+            .html(html)
+            .fadeIn(1000);
+         hijs('code');         
+      }
+   });
+
+   $(function () {
+      window.page = new Page();
+   });
+} ();

@@ -14,36 +14,104 @@
    <script src="vendor/modernizr.js?v=0.0.3"></script>
 </head>
 <body>
-   <!--
-      Templates go in this magic div that no one sees
-   -->
-   <script id="post_tmpl" type="text/template">
-      <h1>{{title}}</h1>
-      <div class="post_body">
-         {{{body}}}
-      </div>
-      <aside>
-         <a href="{{post_url}}" title="{{post_url}}">permalink</a>,
-         on {{date}} ({{timestamp}}).
-      </aside>
-   </script>     
+   <a href="http://github.com/you"><img style="position: absolute; top: 40px; right: 0; border: 0; z-index: 1000;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
 
    <script id="header_tmpl" type="text/template">
       <div class="topbar-inner">
          <div class="container">
             <h3><a href="/">xonecas</a></h3>
             <ul class="nav">
-               <li><a id="prev-post" href="#">Previous</a></li>
-               <li><a id="next-post" href="#">Next</a></li>
+               <li><a id="prev-post" href="#">Previous page</a></li>
+               <li><a id="next-post" href="#">Next page</a></li>
+            </ul>
+
+            <ul class="nav secondary-nav">
+               <li class="menu">
+                  <a href="#" class="menu">Projects and experiments</a>
+                  <ul class="menu-dropdown">
+                     <li>
+                        <a href="/2d-particle-experiements/" target="_new">
+                           2D Particle Experiments
+                        </a>
+                     </li>
+                     <li>
+                        <a href="/creativejs-threejs-part1/" target="_new">
+                           Three.js tutorial from Creativejs.com
+                        </a>
+                     </li>
+                     <li>
+                        <a href="/fractal-tree/" target="_new">
+                           Fractal Tree
+                        </a>
+                     </li>
+                     <li class="divider"></li>
+                     <li>
+                        <a href="https://github.com/xonecas/chrome-hijs" 
+                           target="_new">
+                           Hijs for Chrome
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://github.com/xonecas/dotter" 
+                           target="_new">
+                           Dotter
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://github.com/xonecas/disqus-node" 
+                           target="_new">
+                           Disqus api for Node.js
+                        </a>
+                     </li>
+                  </ul>
+               </li>
             </ul>
          </div>
       </div>
    </script>
 
-   <script id="error_tmpl" type="text/template">
-      An error has occured: {{error}}. <small>Leaving in 5 secs</small>
+   <script id="post_tmpl" type="text/template">
+      <article>
+         <h1>{{title}}</h1>
+         <div class="post_body">
+            {{{body}}}
+         </div>
+         <aside>
+            <a href="{{post_url}}" title="{{post_url}}">permalink <small>tumblr</small></a>,
+            on {{date}} ({{timestamp}}).
+         </aside>
+      </article>
    </script>     
 
+   <script id="footer_tmpl" type="text/template">
+      <div class="row">
+         <div id="twitter" class="span6 offset1">
+            <h2>
+               <a href="//twitter.com/xonecas">@xonecas</a>
+               <small>Twitter</small>
+            </h2>
+            {{#each twitter}}
+            <blockquote>
+               <p>{{{text}}}</p>
+               <small>On {{created_at}}</small>
+            </blockquote>
+            {{/each}}
+         </div>
+         <div id="coderwall" class="span6 offset1">
+            <h2>
+               <a href="//coderwall.com/xonecas">Badges</a>
+               <small>Coderwall</small>
+            </h2>
+            {{#each badges}}
+            <div class="row">
+               <img src="{{badge}}" alt="{{name}}" class="badge">
+               <h3>{{name}}</h3>
+               <p>{{description}}</p>
+            </div>
+            {{/each}}
+         </div>
+      </div>
+   </script>     
 
    <!--
       Dependencies
@@ -55,8 +123,9 @@
    <script src="vendor/backbone.js?v=0.0.3"></script>
    <script src="vendor/hijs.js?v=0.0.3"></script>
    <script src="vendor/smoke.js?v=0.0.3"></script>
+   <script src="bootstrap/js/bootstrap-dropdown.js"></script>
 
    <!-- app -->
-   <script src="js/script.js?v=0.0.3"></script>
+   <script src="js/script.js?v=0.0.4"></script>
 </body>
 </html>
