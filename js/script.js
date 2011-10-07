@@ -208,7 +208,9 @@ var xonecas = !function () {
             .html(html)
             .fadeIn(1000);
 
-         window.scrollTo(0, 310);
+         if (window.scrollY !== 0) {
+            window.scrollTo(0, 310);
+         }
          hijs('code');         
       }
    });
