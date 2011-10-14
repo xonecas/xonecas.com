@@ -7,25 +7,28 @@
 
    I will keep this up to date with current node and connect versions
    any issues please file a issue :-)
+
+var jsp = require("uglify-js").parser;
+var pro = require("uglify-js").uglify;
+
+var orig_code = "... JS code here";
+var ast = jsp.parse(orig_code); // parse code and get the initial AST
+ast = pro.ast_mangle(ast); // get a new AST with mangled names
+ast = pro.ast_squeeze(ast); // get an AST with compression optimizations
+var final_code = pro.gen_code(ast); // compressed code here
+
 ================================================================= */
-var connect = require('connect'),
-   fs       = require('fs');
-   // inspect tool, I use it all the time.
-   inspect  = require('util').inspect;
 
-var routes = function (app) {
+var
+   connect  = require('connect'),
+   gzip     = require('connect-gzip'),
+   ugly     = require('uglify-js-middleware'),
 
-   app.get('/reader', function (req, res, next) {
-      res.writeHead(302, {
-         'content-type' : 'text/plain',
-         'location'     : 'localhost:8081'
-      });
-      res.end('Redirect to reader');
-   });
+   _port    = 8080,
+   _cache   = 0,//1000 * 60 * 60 * 24 * 30,
+   server, route;
 
-/* ------------------------------------------------------------------
-   Keep this route last.
------------------------------------------------------------------- */
+function route (app) {
    app.get('*', function (req, res, next) {
       var url = req.url,
          ua = req.headers['user-agent'];
@@ -47,22 +50,15 @@ var routes = function (app) {
    });
 }
 
+server = connect(
+   gzip.gzip(),
+   ugly({src: __dirname, force: true, uglyext: true}),
+   connect.router(route),
+   connect.static(__dirname, {maxAge: _cache}),
+   connect.logger(":date | :remote-addr | :method :url :status | :user-agent"),
+   connect.favicon(__dirname +'/favicon.ico'),
+   connect.errorHandler()
+);
 
-var cache = 0,//1000 * 60 * 60 * 24 * 30,
-   port   = 8080, 
-   htdocs = __dirname,
-   server = connect.createServer(
-      // http://senchalabs.github.com/connect/middleware-logger.html
-      connect.logger(":date | :remote-addr | :method :url :status | :user-agent"),
-      connect.router(routes),
-      connect.static(htdocs, {maxAge: cache})
-   );
-
-server.listen(port);
-console.log('Node up!\nPort:   '+port+'\nhtdocs: '+htdocs);
-
-/*
-process.on('uncaughtException', function (err) {
-   console.log('Caught exception: ' + err);
-});
-*/
+server.listen(_port);
+console.log("running");

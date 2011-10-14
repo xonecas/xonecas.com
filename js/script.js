@@ -12,14 +12,8 @@ var xonecas = !function () {
       return text;
    }
 
-   var Tumblr = Backbone.Collection.extend({
-      url: "http://api.tumblr.com/v2/blog/xonecas.tumblr.com/posts/text",
-      page: 0,
-      count: 5,
-      idx: 0,
-
-      initialize: function () {
-      },
+   var TumblrSync = Backbone.Collection.extend({
+      type: 'text',
 
       parse: function (res, xhr) {
          this.total = Math.ceil(res.response.total_posts/this.count);
@@ -30,6 +24,7 @@ var xonecas = !function () {
          var params = _.extend(options, {
             "url": this.url,
             "data": {
+               "type": this.type,
                "limit": this.count,
                "offset": this.page * this.count,
                "api_key": "IM11cPEsi3jxTeSNwF8BB9Z08UItXcYKiEDLTLvl5RYn6MBcMD"
@@ -58,6 +53,19 @@ var xonecas = !function () {
             this.fetch();
          }
       }
+   });
+
+   var Photos = TumblrSync.extend({
+      url: "http://api.tumblr.com/v2/blog/xonecas.tumblr.com/posts/photo",
+      page: 0,
+      count: 10,
+      type: 'photo'
+   });
+
+   var Tumblr = TumblrSync.extend({
+      url: "http://api.tumblr.com/v2/blog/xonecas.tumblr.com/posts/text",
+      page: 0,
+      count: 5
    });
 
    var Twitter = Backbone.Collection.extend({
@@ -178,13 +186,14 @@ var xonecas = !function () {
          this.header = new Header({
             'collection': this.collection
          });
+         this.photos = new Photos();
+         this.photos.fetch();
          this.footer = new Footer();
          _.bindAll(this, "render", "report");
          this.collection.bind('reset', this.render);
          this.collection.bind('error', this.report);
          this.collection.bind('change', this.render);
          this.collection.fetch();
-      
          this.header.render();
          $('body').append(this.el);
          this.footer.render();
@@ -208,7 +217,7 @@ var xonecas = !function () {
             .html(html)
             .fadeIn(1000);
 
-         if (window.scrollY !== 0) {
+         if (window.scrollY > 310) {
             window.scrollTo(0, 310);
          }
          hijs('code');         
