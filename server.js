@@ -12,5 +12,5 @@ var
       })
    );
 
-server.listen(8080);
+server.listen(80);
 console.log('OK');
