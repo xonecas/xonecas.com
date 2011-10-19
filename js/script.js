@@ -97,7 +97,7 @@ var xonecas = !function () {
       }
    });
 
-   Badges = Backbone.Collection.extend({
+   var Badges = Backbone.Collection.extend({
       url: "http://coderwall.com/xonecas.json",
 
       parse: function (res, xhr) {
