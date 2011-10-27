@@ -8,10 +8,12 @@
 
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-   <link rel="stylesheet/less" type="text/css" href="bootstrap/lib/bootstrap.less?v=0.0.3">
-   <link rel="stylesheet/less" type="text/css" href="styles/base.less?v=0.0.6">
-   <script src="vendor/less.js?v=0.0.3"></script>
-   <script src="vendor/modernizr.js?v=0.0.3"></script>
+   <script src="vendor/modernizr.js"></script>
+   <!-- require magic! -->
+   <script data-main="js/init" src="vendor/require.js"></script>
+
+   <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" type="text/css" href="styles/style.css?v=1">
 </head>
 <body>
    <a href="http://github.com/you"><img style="position: absolute; top: 40px; right: 0; border: 0; z-index: 1000;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
@@ -136,19 +138,5 @@
       </div>
    </script>     
 
-   <!--
-      Dependencies
-   -->
-   <script src="vendor/json2.js?v=0.0.3"></script>
-   <script src="vendor/jquery.js?v=0.0.3"></script>
-   <script src="vendor/handlebars.js?v=0.0.3"></script>
-   <script src="vendor/underscore.js?v=0.0.3"></script>
-   <script src="vendor/backbone.js?v=0.0.3"></script>
-   <script src="vendor/hijs.js?v=0.0.3"></script>
-   <script src="vendor/smoke.js?v=0.0.3"></script>
-   <script src="bootstrap/js/bootstrap-dropdown.js?v=0.0.3"></script>
-
-   <!-- app -->
-   <script src="js/script.js?v=0.0.6"></script>
 </body>
 </html>
