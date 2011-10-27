@@ -1,4 +1,5 @@
 node_modules
+build
 
 # Mac stuff
 .DS_Store

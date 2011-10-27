@@ -1,5 +1,7 @@
 var 
-   _fs       = require('fs'),
+   prod     = process.env.PRODUCTION,
+   root     = prod ? "./build" : "./public",
+   _fs      = require('fs'),
    less     = require('less'), 
    parser,
    connect  = require('connect'),
@@ -7,7 +9,7 @@ var
       //connect.profiler(),
       connect.logger('dev'),
       connect.favicon("./favicon.ico"),
-      connect['static'](__dirname),
+      connect['static'](root),
       connect.errorHandler({
          'stack': true,
          'message': true,
@@ -16,17 +18,19 @@ var
    );
 
 parser = new (less.Parser)();
-_fs.readFile('styles/base.less', 'utf8', function (itAway, out) {
+_fs.readFile(root+'/styles/base.less', 'utf8', function (itAway, out) {
    if (itAway) {
       throw itAway;
    }
+
+   out = out.replace(/_root_/, root);
 
    parser.parse(out, function (down, tree) {
       if (down) {
          throw down;//!!!!!
       }
 
-      _fs.writeFile('styles/style.css', tree.toCSS({ compress: true }), 'utf8', function (yourArmsUp) {
+      _fs.writeFile(root+ '/styles/style.css', tree.toCSS({ compress: true }), 'utf8', function (yourArmsUp) {
          if (yourArmsUp) {
             throw yourArmsUp; // \o/
          }
@@ -35,5 +39,11 @@ _fs.readFile('styles/base.less', 'utf8', function (itAway, out) {
    });
 });
 
-server.listen(80);
+server.listen(prod ? 80 : 8080);
 console.log('OK');
+prod && console.log('PRODUCTION');
+
+// for production run `node node_modules/requirejs/bn/r.js -o app.build.js`
+// then run `sudo PRODUCTION=true node server`
+//
+// for dev just run `node server`
