@@ -118,11 +118,11 @@ var xonecas = !function () {
    var Header = Backbone.View.extend({
       className: 'topbar',
       tagName: 'header',
-      template: '#header_tmpl',
+      template: Handlebars.templates['header-tmpl.html'],
 
       render: function () {
          $(this.el)
-            .html($(this.template).html())
+            .html(this.template())
             .appendTo('body')
             .dropdown();
       },

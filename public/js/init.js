@@ -16,6 +16,7 @@ require([
 ], function () {
    // these need jquery
    require([
+      'compiled/header-tmpl',
       'vendor/backbone',
       'bootstrap/bootstrap-dropdown'
    ], function () {
