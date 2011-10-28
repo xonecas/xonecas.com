@@ -23,7 +23,7 @@ _fs.readFile(root+'/styles/base.less', 'utf8', function (itAway, out) {
       throw itAway;
    }
 
-   out = out.replace(/_root_/, root);
+   out = out.replace(/_root_/g, root);
 
    parser.parse(out, function (down, tree) {
       if (down) {
