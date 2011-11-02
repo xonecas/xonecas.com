@@ -2,7 +2,7 @@
    appDir: './public',
    baseUrl: './',
    paths: {
-      bootstrap: './bootstrap/js'
+      bootstrap: 'bootstrap/js'
    },
    dir: 'build',
    modules: [
