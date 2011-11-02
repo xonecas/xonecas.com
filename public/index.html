@@ -10,7 +10,7 @@
 
    <script src="vendor/modernizr.js"></script>
    <!-- require magic! -->
-   <script data-main="js/router.js" src="vendor/require.js"></script>
+   <script data-main="js/init.js" src="vendor/require.js"></script>
 
    <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css" href="styles/style.css?v=1">
@@ -27,12 +27,15 @@
    </section>
 
    <script id="photos_tmpl" type="text/template">
+      <h2>Media gallery <small>Tumblr</small>
       <ul class="media-grid">
+      {{#each this}}
          <li>
-            <a href="">
-
+            <a href="{{url}}">
+               <img src="{{thumb}}" alt="{{caption}}" title="{{caption}}">
             </a>
          </li>
+      {{/each}}
       </ul>
    </script>
 

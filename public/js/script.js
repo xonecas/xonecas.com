@@ -58,8 +58,25 @@ var xonecas = !function () {
    var Photos = TumblrSync.extend({
       url: "http://api.tumblr.com/v2/blog/xonecas.tumblr.com/posts/photo",
       page: 0,
-      count: 10,
-      type: 'photo'
+      count: 20,
+      type: 'photo',
+
+      parse: function (res) {
+         var media = [];
+
+         _.each(res.response.posts, function (post) {
+            _.each(post.photos, function (photo) {
+               var cap = photo.caption === "" ? post.caption: photo.caption;
+               media.push({
+                  caption: cap.replace(/<.*?>/g, ''),
+                  url: photo.original_size.url, 
+                  thumb: photo.alt_sizes[4].url
+               });
+            });
+         });
+
+         return media;
+      }
    });
 
    var Tumblr = TumblrSync.extend({
@@ -120,10 +137,13 @@ var xonecas = !function () {
       tagName: 'header',
       template: Handlebars.templates['header-tmpl.html'],
 
+      initialize: function () {
+         $(this.el).appendTo('body');
+      },
+
       render: function () {
          $(this.el)
             .html(this.template())
-            .appendTo('body')
             .dropdown();
       },
 
@@ -151,6 +171,7 @@ var xonecas = !function () {
       template:   '#footer_tmpl',
 
       initialize: function () {
+         $(this.el).appendTo('body');
          _.bindAll(this, "render");
          this.twitter = new Twitter();
          this.twitter.bind('reset', this.render);
@@ -170,10 +191,31 @@ var xonecas = !function () {
             };
 
          $(this.el)
-            .html(template(context))
-            .appendTo('body');
+            .html(template(context));
       }
    }); 
+
+   var Media = Backbone.View.extend({
+      id: "media",
+      className: 'container',
+      tagName: 'section',
+      template: '#photos_tmpl',
+      collection: new Photos(),
+
+      initialize: function () {
+         $(this.el).appendTo('body');
+         this.template = Handlebars.compile($(this.template).html());
+
+         _.bindAll(this, "render");
+         this.collection.bind('reset', this.render);
+         this.collection.fetch();
+      },
+
+      render: function () {
+         $(this.el)
+            .html(this.template(this.collection.toJSON()));
+      }
+   });
 
    var Page = Backbone.View.extend({
       id:         'main',
@@ -186,8 +228,8 @@ var xonecas = !function () {
          this.header = new Header({
             'collection': this.collection
          });
-         this.photos = new Photos();
-         this.photos.fetch();
+         $('body').append(this.el);
+         this.media = new Media();
          this.footer = new Footer();
          _.bindAll(this, "render", "report");
          this.collection.bind('reset', this.render);
@@ -195,7 +237,7 @@ var xonecas = !function () {
          this.collection.bind('change', this.render);
          this.collection.fetch();
          this.header.render();
-         $('body').append(this.el);
+         this.media.render();
          this.footer.render();
       },
 
