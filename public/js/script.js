@@ -70,7 +70,7 @@ var xonecas = !function () {
 
    var Twitter = Backbone.Collection.extend({
       url: "http://api.twitter.com/1/statuses/user_timeline.json",
-      count: 5,
+      count: 11,
 
       parse: function (res) {
          _.each(res, function (tweet) {

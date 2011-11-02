@@ -363,3 +363,4 @@ code .class,code .special{color:blue;}
 code .number{color:red;}
 code .comment{color:grey;}
 .badge{width:90px;height:90px;position:relative;left:20px;float:left;margin:0 40px 20px 0;}
+.post_body img{display:block;margin-bottom:20px;max-width:100%;float:left;}
