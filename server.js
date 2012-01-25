@@ -1,4 +1,5 @@
 /*jshint expr:true */
+
 var 
    prod     = process.env.PRODUCTION,
    root     = prod ? "./build" : "./htdocs",
@@ -17,4 +18,4 @@ var
 
 
 server.listen(prod ? 80 : 8080);
-console.log(prod ? 'OK DEV': 'OK PROD');
+console.log(prod ? 'OK PRODUCTION': 'OK DEV');
