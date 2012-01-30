@@ -2,7 +2,7 @@
 
 var 
    prod     = process.env.PRODUCTION,
-   root     = prod ? "./build" : "./htdocs",
+   root     = "./htdocs",
    connect  = require('connect'),
    server   = connect(
       //connect.profiler(),
