@@ -10,44 +10,35 @@
    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-   <header class="header-background">
-      <h3 class="name">Sean Caetano Martin <small>xonecas</small></h3>
-   </header>
-
-   <section id="main" class="container">
-      <div class="banner">
-      </div>
-
-      <div class="previews row">
-      </div>
-   </section>
-
-   <!--[if lt IE 9]> <script src="js/html5shiv.js"></script> <![endif]-->
+   <!-- vendor stuff -->
    <script src="js/underscore.js"></script>
    <script src="js/jquery.js"></script>
+   <script src="js/jquery.noisy.js"></script>
+   <script src="js/parallax.js"></script>
+
+   <!-- my modules -->
    <script src="js/tumblr-api.js"></script>
    <script src="js/view.js"></script>
+
+   <!-- startup -->
    <script src="js/index.js"></script>
 
-   <script id="banner-tmpl" type="text/template">
-      <h1 class="title"><%= title %></h1>
-      <h2><%= description %></h2>
+   <script id="index-tmpl" type="text/template">
+      <h1><%= title %></h1>
+      <h3><%= description %></h3>
+      <ul>
+      <% _.each(posts, function (post, idx) { %>
+         <li><a href="#" id="<%= post.id %>" class="navigation">
+            <%= post.title %> &rarr;
+         </a></li>
+      <% }); %>
+      </ul>
    </script>
 
-   <script id="preview-tmpl" type="text/template">
-      <h3><a href="#" class="preview-title" data-id="<%= id %>"><%= title %></a></h3>
+   <script id="page-tmpl" type="text/template">
+      <h1><%= title %></h1>
       <div><%= body %></div>
-      <time class="timestamp"><%= date %></time>
-   </script>
-
-   <script id="post-tmpl" type="text/template">
-      <a href="#" class="back push-right">Back</a>
-      <h2><%= title %></h2>
-      <div><%= body %></div>
-      <time class="timestamp"><%= date %></time>
-
-      <p><a href="#" class="back">Back</a></p>
+      <a href="#" class="back">&larr; Back</a>
    </script>
 
 </body>

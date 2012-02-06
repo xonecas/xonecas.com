@@ -161,79 +161,23 @@ html, body {
    font-family: Helvetica, "Helvetica Neue", Arial, "DejaVu Sans", sans-serif;
 }
 
-small {
-   color: #666;
-}
-
-pre, code {
+pre {
    font-size: smaller;
    padding: 4px;
-   background: #efefef;
-   -webkit-border-radius: 6px; /* Saf3-4, iOS 1-3.2, Android ≤1.6 */
-   -moz-border-radius: 6px; /* FF1-3.6 */
-   border-radius: 6px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+   border-left: 5px solid #eff6ff;
 }
 
 a {
-   color: #323230;
-   background: #f0db4e;
-   padding: 2px;
-   -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android ≤1.6 */
-   -moz-border-radius: 4px; /* FF1-3.6 */
-   border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+   color: #91ceed;
    text-decoration: none;
 }
 a:active, a:visited {
-   color: #666;
+   color: #6caee8;
 }
 a:hover {
-   color: #000;
+   color: #2072d6;
 }
 
-.name {
-   color: #fff;
-   margin: 0;
-   padding: 20px;
-}
-
-.header-background {
-   height: 60px;
-   margin-bottom: 20px;
-
-   background-color: #333333;
-   background-image: -webkit-gradient(linear, left top, left bottom, from(#333333), to()); /* Saf4+, Chrome */
-   background-image: -webkit-linear-gradient(top, #333333, #000000); /* Chrome 10+, Saf5.1+, iOS 5+ */
-   background-image:    -moz-linear-gradient(top, #333333, #000000); /* FF3.6 */
-   background-image:     -ms-linear-gradient(top, #333333, #000000); /* IE10 */
-   background-image:      -o-linear-gradient(top, #333333, #000000); /* Opera 11.10+ */
-   background-image:         linear-gradient(to bottom, #333333, #000000);
-
-   -webkit-box-shadow: 0 4px 2px #ccc; /* Saf3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-   -moz-box-shadow: 0 4px 2px #ccc; /* FF3.5 - 3.6 */
-   box-shadow: 0 4px 2px #ccc; /* Opera 10.5, IE9, FF4+, Chrome 6+, iOS 5 */
-}
-
-.title {
-   text-transform: uppercase;
-   margin-top: 0;
-   margin-bottom: 20px;
-}
-
-.banner {
-   padding: 20px;
-   margin: 40px 0;
-   background: #efefef;
-
-   -webkit-border-radius: 12px; /* Saf3-4, iOS 1-3.2, Android ≤1.6 */
-   -moz-border-radius: 12px; /* FF1-3.6 */
-   border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-}
-
-.preview > div {
-   margin-bottom: 20px;
-}
-
-.timestamp {
-   color: #666;
-   font-size: smaller;
+.container {
+   padding: 40px;
 }

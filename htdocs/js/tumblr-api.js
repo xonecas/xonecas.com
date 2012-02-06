@@ -100,11 +100,6 @@ var Tumblr = (function (win, doc, undefined) {
       }
    };
 
-   if (typeof define === 'function') {
-      // it depends on jquery and underscore, not quite sure how to reflect this atm.
-      define('Tumblr', [], function () { return Tumblr; });
-   }
-
    return (win.Tumblr = Tumblr);
 
 }) (this, document);
