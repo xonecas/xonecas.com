@@ -6,6 +6,7 @@
    <title>Sean Caetano Martin -- @xonecas</title>
    <meta name="viewport" content="width=device-width,initial-scale=1">
 
+   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Anonymous+Pro:400,700,400italic,700italic">
    <link rel="stylesheet" href="css/normalize.css">
    <link rel="stylesheet" href="css/style.css">
 </head>
@@ -18,6 +19,7 @@
 
    <!-- my modules -->
    <script src="js/tumblr-api.js"></script>
+   <script src="js/github.js"></script>
    <script src="js/view.js"></script>
 
    <!-- startup -->
@@ -31,6 +33,15 @@
          <li><a href="#" id="<%= post.id %>" class="navigation">
             <%= post.title %> &rarr;
          </a></li>
+      <% }); %>
+      </ul>
+   </script>
+
+   <script id="github-tmpl" type="text/template">
+      <h3>Github repos</h3>
+      <ul>
+      <% _.each(repos, function (repo, idx) { %>
+         <li><a href="<%= repo.url %>" target="_blank"><%= repo.name %> &#8599;</a></li>
       <% }); %>
       </ul>
    </script>

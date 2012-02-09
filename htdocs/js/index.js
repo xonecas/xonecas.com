@@ -1,8 +1,9 @@
-/*global Tumblr:true, _:true, $:true, View:true, parallax: true */
+/*global Tumblr:true, _:true, $:true, View:true, parallax: true, Github:true */
 $(function () {
    'use strict';
 
-   var tumblr = new Tumblr('xonecas', 'IM11cPEsi3jxTeSNwF8BB9Z08UItXcYKiEDLTLvl5RYn6MBcMD');
+   var tumblr = new Tumblr('xonecas', 'IM11cPEsi3jxTeSNwF8BB9Z08UItXcYKiEDLTLvl5RYn6MBcMD'),
+      github = new Github('xonecas');
    $('body').hide();
 
    tumblr.getpost(20, {
@@ -40,9 +41,16 @@ $(function () {
             });
          });
 
-         $('body').noisy().css('background-color', '#eff6ff').show();
+         $('body').noisy().css('background-color', '#121212').show();
          parallax.index.show();
       }
+   });
+
+   github.getrepos(function (data) {
+      var gitview = new View({
+         el: $('<div id="github"></div>').appendTo('#index'),
+         template: _.template($('#github-tmpl').html())
+      }).toHTML({ repos: data.repositories });
    });
 
    $.get('/analytics');
