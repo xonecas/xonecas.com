@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# === Config ===
+src='./src'
+base='./dist'
+serverpid='./tool/.server_pid'
+dev=$base/dev
+public=$base/public
+
+# === Clean up ===
+echo 'Cleaning ...'
+[[ -e $base ]] && rm -r $base
+mkdir -p {$dev,$public}/{css,js}
+echo 'Killing the server...'
+[[ -e $serverpid ]] && kill $(cat $serverpid)
+
+# === Compile less ===
+echo 'Compiling less...'
+lessc $src/less/importer.less> $dev/css/style.css
+lessc -x $src/less/importer.less > $public/css/style.css
+
+# === Compile mustache ===
+echo 'Compiling mustache...'
+hulk $src/mustache/*.mustache > $dev/js/templates.js
+hulk $src/mustache/*.mustache > $public/js/templates.js
+
+# === Concatenate vendor js ===
+echo 'Concatenating js...'
+for s in $src/vendor/*.js; do
+   cat $s >> $dev/js/vendor.js
+   cat $s >> $public/js/vendor.js
+done
+
+# === Concatenate js ===
+for s in $src/js/*.js; do
+   cat $s >> $dev/js/script.js
+   cat $s >> $public/js/script.js
+done
+
+# === append init last ===
+cat $src/init.js >> $dev/js/script.js
+cat $src/init.js >> $public/js/script.js
+
+
+# === uglify ===
+echo 'Minifying...'
+uglifyjs --overwrite $public/js/vendor.js
+uglifyjs --overwrite $public/js/templates.js
+uglifyjs --overwrite $public/js/script.js
+
+# === html ===
+echo 'Copying html...'
+cp $src/index.html $dev
+cp $src/index.html $public
+
+# === server ===
+echo 'Copying server...'
+cp $src/http.js $base
+
+# === init server ===
+echo 'Starting server...'
+node $base/http.js >> ./tool/access_log 2>> ./tool/error_log &
+echo $! > $serverpid
