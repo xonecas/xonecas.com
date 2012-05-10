@@ -2,62 +2,50 @@
 
 # === Config ===
 src='./src'
-base='./dist'
 serverpid='./tool/.server_pid'
-dev=$base/dev
-public=$base/public
+public='./public'
+env=$1
 
 # === Clean up ===
 echo 'Cleaning ...'
-[[ -e $base ]] && rm -r $base
-mkdir -p {$dev,$public}/{css,js}
+[[ -e $public ]] && rm -r $public
+mkdir -p $public/{css,js}
 echo 'Killing the server...'
 [[ -e $serverpid ]] && kill $(cat $serverpid)
 
 # === Compile less ===
 echo 'Compiling less...'
-lessc $src/less/importer.less> $dev/css/style.css
 lessc -x $src/less/importer.less > $public/css/style.css
 
 # === Compile mustache ===
 echo 'Compiling mustache...'
-hulk $src/mustache/*.mustache > $dev/js/templates.js
 hulk $src/mustache/*.mustache > $public/js/templates.js
 
 # === Concatenate vendor js ===
-echo 'Concatenating js...'
-for s in $src/vendor/*.js; do
-   cat $s >> $dev/js/vendor.js
-   cat $s >> $public/js/vendor.js
-done
+echo 'Compiling js...'
+cat $src/js/ender.js > $public/js/app.js
+echo "(function (global) {" >> $public/js/app.js
+cat $src/js/init.js >> $public/js/app.js
+cat $public/js/templates.js >> $public/js/app.js
+cat $src/js/boot.js >> $public/js/app.js
+echo "}) (this);" >> $public/js/app.js
 
-# === Concatenate js ===
-for s in $src/js/*.js; do
-   cat $s >> $dev/js/script.js
-   cat $s >> $public/js/script.js
-done
-
-# === append init last ===
-cat $src/init.js >> $dev/js/script.js
-cat $src/init.js >> $public/js/script.js
-
-
-# === uglify ===
-echo 'Minifying...'
-uglifyjs --overwrite $public/js/vendor.js
-uglifyjs --overwrite $public/js/templates.js
-uglifyjs --overwrite $public/js/script.js
+if [ "$env" = "prod" ]; then
+   echo 'Uglifying js...'
+   uglifyjs --overwrite $public/js/app.js
+fi
 
 # === html ===
 echo 'Copying html...'
-cp $src/index.html $dev
 cp $src/index.html $public
 
 # === server ===
 echo 'Copying server...'
-cp $src/http.js $base
+cp $src/http.js $public
 
 # === init server ===
-echo 'Starting server...'
-node $base/http.js >> ./tool/access_log 2>> ./tool/error_log &
-echo $! > $serverpid
+if [ $# == 0 ]; then
+   echo 'Starting server...'
+   node $public/http.js &
+   echo $! > $serverpid
+fi

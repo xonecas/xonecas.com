@@ -1,5 +1,5 @@
 var connect, server, root;
-root = __dirname + '/dev';
+root = __dirname;
 connect = require('connect');
 server = connect()
    .use(connect.favicon())

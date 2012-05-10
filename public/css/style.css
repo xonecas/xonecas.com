@@ -65,5 +65,5 @@ html,body{color:#333333;background-color:#eeeeee;}
 a{color:#2eaadc;text-decoration:none;}a:hover,a:active{color:#16b4f4;text-decoration:underline;}
 a:visited{color:#46a0c4;}
 h1,h2,h3,h4,h5,h6{text-shadow:1px 1px 1px #ffffff;}
-.modal{width:300px;position:fixed;*position:absolute;top:100px;left:50%;margin-left:-150px;}
-.bottom{position:fixed;*position:absolute;bottom:0;left:0;}
+.modal{width:300px;position:absolute;top:100px;left:50%;margin-left:-150px;}
+.bottom{position:absolute;bottom:0;left:0;padding:5px 20px;}
