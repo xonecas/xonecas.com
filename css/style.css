@@ -83,6 +83,13 @@ p {
     margin: 40px 3.125%;
 }
 
+hr {
+    border: none;
+    background: #aaa;
+    height: 1px;
+    box-shadow: 0 0 3px #aaa;
+}
+
 h1 {
     font-size: /* 42 / 16 */ 2.625em;
 }
