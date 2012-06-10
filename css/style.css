@@ -107,6 +107,15 @@ canvas {
     body {
         width: 100%;
     }
+
+    footer {
+        text-align: center;
+    }
+
+    footer a {
+        width: 37.5%;
+        margin: 20px 6.25%;
+    }
 }
 
 /* util */
