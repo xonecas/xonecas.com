@@ -6,17 +6,20 @@
         canvas,
         c,
         height,
+        img,
         radians,
         width;
 
     body = document.querySelector('body');
     canvas = document.createElement('canvas');
     c = canvas.getContext('2d');
-    height = window.innerHeight;
-    width = window.innerWidth;
+    img = document.createElement('img');
     radians = Math.PI / 180;
 
-    body.appendChild(canvas);
+    //body.appendChild(canvas);
+    img.id = 'bg';
+    img.alt = 'Background image';
+    body.appendChild(img);
 
 
     function rrange(min, max, noFloor) {
@@ -31,8 +34,8 @@
         size = 10;
         startColor = 5;
 
-        canvas.width = width;
-        canvas.height = height;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
         c.save();
         c.translate(canvas.width / 2, canvas.height / 2);
@@ -71,9 +74,13 @@
         }(0, startColor, 0, 1));
 
         c.restore();
+
+        return canvas.toDataURL();
     }
 
-    fractal();
-    setInterval(fractal, 10000);
+    (function drawLoop() {
+        img.src = fractal();
+        setTimeout(drawLoop, 10000);
+    }());
 
 }());

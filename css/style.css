@@ -3,7 +3,6 @@ html,
 body,
 section,
 header,
-footer,
 h1,
 h2 {
     display: block;
@@ -22,22 +21,12 @@ html {
 }
 
 body {
-    width: 480px;
+    width: 100%;
     margin: 40px auto;
 }
 
 section {
     margin: 40px 0;
-}
-
-footer {
-    margin: 40px 0;
-}
-
-footer a {
-    float: left;
-    width: 18.75%;
-    margin: 0 3.125%;
 }
 
 img,
@@ -46,8 +35,8 @@ object {
 }
 
 img {
-    border: 0; /* 1 */
-    -ms-interpolation-mode: bicubic; /* 2 */
+    border: 0;
+    -ms-interpolation-mode: bicubic;
 }
 
 a,
@@ -97,7 +86,22 @@ h2 {
     font-size: /* 24 / 16 */ 1.5em;
 }
 
-canvas {
+.xonecas-elsewhere a {
+    float: left;
+    width: 18.75%;
+    margin: 20px 3.125%;
+}
+.xonecas-elsewhere a span {
+    display: none;
+}
+
+.promote-a-better-web > a {
+    float: left;
+    width: 25%;
+    margin: 20px 4.167%;
+}
+
+#bg {
     position: fixed;
     top: 0;
     left: 0;
@@ -111,17 +115,23 @@ canvas {
 }
 
 @media screen and (max-width: 480px) {
-    body {
-        width: 100%;
-    }
-
-    footer {
+    .xonecas-elsewhere {
         text-align: center;
     }
 
-    footer a {
+    .xonecas-elsewhere a {
         width: 37.5%;
         margin: 20px 6.25%;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    html {
+        font-size: 20px;
+    }
+
+    body {
+        max-width: 960px;
     }
 }
 
