@@ -1,0 +1,125 @@
+/* reset used elements (sloppy) */
+html,
+body,
+section,
+header,
+footer,
+h1,
+h2 {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background: #efefef;
+    color: #333;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans;
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    min-height: 100%;
+}
+
+body {
+    width: 480px;
+    margin: 40px auto;
+}
+
+section {
+    margin: 40px 0;
+}
+
+footer {
+    margin: 40px 0;
+}
+
+footer a {
+    float: left;
+    width: 18.75%;
+    margin: 0 3.125%;
+}
+
+img,
+object {
+    max-width: 100%;
+}
+
+img {
+    border: 0; /* 1 */
+    -ms-interpolation-mode: bicubic; /* 2 */
+}
+
+a,
+a:visited {
+    color: hsl(20, 90%, 44%);
+    text-decoration: none;
+}
+
+a:hover,
+a:active {
+    color: hsl(20, 100%, 50%);
+}
+
+::-moz-selection {
+    background: #333;
+    color: #fff;
+    text-shadow: none;
+}
+
+::selection {
+    background: #333;
+    color: #fff;
+    text-shadow: none;
+}
+
+h1, h2 {
+    font-family: 'Gentium Basic', serif;
+    line-height: 1.2;
+    margin: 0 3.125%;
+}
+
+p {
+    margin: 40px 3.125%;
+}
+
+h1 {
+    font-size: /* 42 / 16 */ 2.625em;
+}
+h2 {
+    font-size: /* 24 / 16 */ 1.5em;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+@media screen and (min-width: 480px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        width: 100%;
+    }
+}
+
+/* util */
+.cf:before,
+.cf:after {
+    content:"";
+    display:table;
+}
+
+.cf:after {
+    clear:both;
+}
+
+.cf {
+    *zoom:1;
+}
