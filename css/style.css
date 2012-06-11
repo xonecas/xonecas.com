@@ -1,4 +1,4 @@
-/* reset used elements (sloppy) */
+/* === reset used elements === */
 html,
 body,
 section,
@@ -41,13 +41,38 @@ img {
 
 a,
 a:visited {
-    color: hsl(20, 90%, 44%);
+    color: #CA3416;
+    /* color: hsl(10, 80%, 44%); */
     text-decoration: none;
 }
 
 a:hover,
 a:active {
-    color: hsl(20, 100%, 50%);
+    color: #555;
+}
+
+h1, h2 {
+    font-family: 'Gentium Basic', serif;
+    line-height: 1.2;
+    margin: 0 3.125%;
+}
+
+h1 {
+    font-size: /* 42 / 16 */ 2.625em;
+}
+h2 {
+    font-size: /* 24 / 16 */ 1.5em;
+}
+
+p {
+    margin: 40px 3.125%;
+}
+
+hr {
+    border: none;
+    background: #aaa;
+    height: 1px;
+    box-shadow: 0 0 3px #aaa;
 }
 
 ::-moz-selection {
@@ -62,37 +87,16 @@ a:active {
     text-shadow: none;
 }
 
-h1, h2 {
-    font-family: 'Gentium Basic', serif;
-    line-height: 1.2;
-    margin: 0 3.125%;
-}
+/* === my styles === */
 
-p {
-    margin: 40px 3.125%;
-}
-
-hr {
-    border: none;
-    background: #aaa;
-    height: 1px;
-    box-shadow: 0 0 3px #aaa;
-}
-
-h1 {
-    font-size: /* 42 / 16 */ 2.625em;
-}
-h2 {
-    font-size: /* 24 / 16 */ 1.5em;
+.xonecas-elsewhere a, .promote-a-better-web a {
+    text-align: center;
 }
 
 .xonecas-elsewhere a {
     float: left;
     width: 18.75%;
     margin: 20px 3.125%;
-}
-.xonecas-elsewhere a span {
-    display: none;
 }
 
 .promote-a-better-web > a {
@@ -115,10 +119,6 @@ h2 {
 }
 
 @media screen and (max-width: 480px) {
-    .xonecas-elsewhere {
-        text-align: center;
-    }
-
     .xonecas-elsewhere a {
         width: 37.5%;
         margin: 20px 6.25%;
@@ -132,6 +132,12 @@ h2 {
 
     body {
         max-width: 960px;
+    }
+
+    .xonecas-elsewhere a:after {
+        content: attr(title);
+        display: block;
+        margin-top: 20px;
     }
 }
 

@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<!--[if lt IE 9]> <html class="oldIE" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <title>Sean Caetano Martin</title>
@@ -13,7 +14,7 @@
             families: [ 'Gentium+Basic:400,700,400italic,700italic:latin' ]
         }
     };
-    function _ (url) {
+    function _(url) {
         var wf = document.createElement('script');
         wf.src = url;
         wf.type = 'text/javascript';
@@ -22,7 +23,13 @@
         s.parentNode.insertBefore(wf, s);
     }
     _('//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
-    _('/js/follower.js');
+
+    (function () {
+        var html = document.getElementsByTagName('html')[0];
+        if (html.className.indexOf('oldIE') === -1) {
+            _('/js/follower.js');
+        }
+    }());
     </script>
 </head>
 <body>
@@ -56,16 +63,18 @@
             <h2>Sean elsewhere<h2>
         </header>
 
-        <a href="//github.com/xonecas" title="">
+        <a href="//github.com/xonecas" title="My open source code">
             <img src="/images/github.png" alt="Github">
         </a>
-        <a href="//xonecas.tumblr.com" title="">
+        <a href="//xonecas.tumblr.com"
+            title="Closest thing I have to a blog">
             <img src="/images/tumblr.png" alt="Tumblr">
         </a>
-        <a href="//twitter.com/xonecas" title="">
+        <a href="//twitter.com/xonecas" title="Few a far apart tweets">
             <img src="/images/twitter.png" alt="Twitter">
         </a>
-        <a href="//www.last.fm/user/xonecas" title="">
+        <a href="//www.last.fm/user/xonecas"
+            title="What I listen to while coding">
             <img src="/images/last-fm.png" alt="Last FM">
         </a>
     </section>
@@ -77,12 +86,12 @@
             <h2>Promote a better web</h2>
         </header>
 
-        <a href="//www.html5rocks.com/en/" title="HTML5">
+        <a href="//www.html5rocks.com/en" title="HTML5">
             <img src="/images/h5logo.png" alt="HTML5 Logo">
         </a>
 
         <!-- from promotejs.org -->
-        <a href="//developer.mozilla.org/en/JavaScript/"
+        <a href="//developer.mozilla.org/en/JavaScript"
             title="JavaScript at Mozilla Developer Network">
             <img src="http://static.jsconf.us/promotejsh.gif"
                 alt="JavaScript Docs">
@@ -92,5 +101,18 @@
             <img src="/images/js.png" alt="JS Logo">
         </a>
     </section>
+
+<!--
+
+    I need to farm up a few resources worthy of this placement
+
+    <hr>
+
+    <section class="more-good-stuff">
+        <a href="//movethewebforward.org" title="Move the web forward">
+            Move the web forward
+        </a>
+    </section>
+-->
 </body>
 </html>
